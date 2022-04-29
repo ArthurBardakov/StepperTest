@@ -1,0 +1,7 @@
+<app-top-bar
+   [Steps]="NumberOfSteps"
+   (FormGroupList)="(content.FormGroupList = $event)"
+   class="wrow">
+</app-top-bar>
+<app-content #content [Fields]="Fields" class="wrow"></app-content>
+<app-bottom-bar class="wrow"></app-bottom-bar>

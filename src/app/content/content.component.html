@@ -1,0 +1,18 @@
+<ng-container *ngIf="FormGroupList && FieldIndex < FormGroupList.length - 1; else finished">
+   <ng-container *ngFor="let gr of FormGroupList; let i = index">
+      <form [formGroup]="FormGroupList[FieldIndex]" *ngIf="i === stepperSrc.Step">
+         <ng-template matStepLabel>Fill out your name</ng-template>
+         <mat-form-field appearance="fill">
+            <mat-label>{{Fields[i].Name}}</mat-label>
+            <input matInput
+                     placeholder="{{Fields[i].Placeholder}}"
+                     type="{{Fields[i].Type}}"
+                     formControlName="{{CtrlName(i)}}"
+                     required>
+         </mat-form-field>
+      </form>
+   </ng-container>
+</ng-container>
+<ng-template #finished>
+   <mat-icon svgIcon="thumbs-up" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+</ng-template>
