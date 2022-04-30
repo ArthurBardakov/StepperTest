@@ -43,7 +43,7 @@ implements AfterViewInit {
       this.subs.sink = fg.statusChanges
       .subscribe((status) =>
         this.IsFieldValid.emit(status === 'VALID'))});
-    this.stepperSrc.OnStep
+    this.subs.sink = this.stepperSrc.OnStep
       .subscribe((step) =>
         this.IsFieldValid.emit(
           this.FormGroupList[step].status === 'VALID'));
