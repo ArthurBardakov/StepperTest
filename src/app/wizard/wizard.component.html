@@ -3,5 +3,9 @@
    (FormGroupList)="(content.FormGroupList = $event)"
    class="wrow">
 </app-top-bar>
-<app-content #content [Fields]="Fields" class="wrow"></app-content>
-<app-bottom-bar class="wrow"></app-bottom-bar>
+<app-content #content
+             [Fields]="Fields"
+             (IsFieldValid)="(bb.CanStep = $event)"
+             class="wrow">
+</app-content>
+<app-bottom-bar #bb class="wrow"></app-bottom-bar>
