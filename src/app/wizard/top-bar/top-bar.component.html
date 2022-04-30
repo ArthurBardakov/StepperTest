@@ -1,0 +1,6 @@
+<mat-stepper [linear]="stepperSrc.IsLinearCompletion"
+             selectedIndex="{{ManualSelect}}"
+             labelPosition="bottom" #stepper
+             (selectionChange)="SetIndex($event)">
+  <mat-step *ngFor="let fg of (FormGroupList$ | async)" [stepControl]="fg"></mat-step>
+</mat-stepper>
