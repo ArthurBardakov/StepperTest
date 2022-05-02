@@ -1,25 +1,31 @@
-import { AfterContentChecked, ChangeDetectorRef, Component } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { FieldDetails } from '../models/field-details';
 import { StepperService } from '../services/stepper.service';
+import { loadFields } from '../state/wizard/wizard-actions';
 
 @Component({
   selector: 'app-wizard',
   templateUrl: './wizard.component.html',
   styleUrls: ['./wizard.component.scss']
 })
-export class WizardComponent implements AfterContentChecked {
+export class WizardComponent implements OnInit, AfterContentChecked {
 
-  public NumberOfSteps!: number;
-  public Fields!: FieldDetails[];
+  public FieldDetails!: FieldDetails[];
 
   constructor(
     private detector: ChangeDetectorRef,
-    private stepperSrc: StepperService) {
+    private stepperSrc: StepperService,
+    private store: Store) {
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(loadFields());
     this.initSteps();
   }
 
   private initSteps(): void {
-    this.Fields = [
+    this.FieldDetails = [
       {
         Name: 'Name',
         Type: 'string',
@@ -29,19 +35,12 @@ export class WizardComponent implements AfterContentChecked {
         Name: 'Age',
         Type: 'number',
         Placeholder: 'Your age'
-      },
-      {
-        Name: 'Finished',
-        Type: undefined,
-        Placeholder: ''
       }
-    ];
-    this.NumberOfSteps = this.Fields.length;
-    this.stepperSrc.SetMaxStep(this.NumberOfSteps - 1);
+    ];    
+    this.stepperSrc.SetMaxStep(this.FieldDetails.length);
   }
 
   ngAfterContentChecked(): void {
     this.detector.detectChanges();
   }
-
 }

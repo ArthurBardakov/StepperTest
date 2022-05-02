@@ -2,5 +2,6 @@
              selectedIndex="{{ManualSelect}}"
              labelPosition="bottom" #stepper
              (selectionChange)="SetIndex($event)">
-  <mat-step *ngFor="let fg of (FormGroupList$ | async)" [stepControl]="fg"></mat-step>
+  <mat-step *ngFor="let fg of FormGroupList" [stepControl]="fg"></mat-step>
+  <mat-step></mat-step>
 </mat-stepper>

@@ -8,18 +8,18 @@ import { StepperService } from '../../services/stepper.service';
 })
 export class BottomBarComponent {
 
-  @Input() public CanStep!: boolean;
+  @Input() public FreezeStep!: boolean;
   public readonly BackBtn: string;
   public readonly NextBtn: string;
 
   constructor(public stepperSrc: StepperService) {
-    this.CanStep = false;
+    this.FreezeStep = false;
     this.BackBtn = 'BACK';
     this.NextBtn = 'NEXT';
   }
 
   public TriggerStep(direction: number): void {
-    if (!this.CanStep && direction === 1) {
+    if (!this.FreezeStep && direction === 1) {
       alert('Fill in the data correctly, please!');
       return;
     }

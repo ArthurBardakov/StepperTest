@@ -1,5 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { merge, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { filter, map, merge, Observable, take } from 'rxjs';
+import { selectAllFields } from '../state/wizard/wizard-selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -19,19 +21,33 @@ export class StepperService {
     return this.Step === 0;
   }
   public get IsLastStep(): boolean {
-    return this.Step === this.maxStep;
-  }
+    return this.Step === this.MaxStep;
+  }  
   private maxStep!: number;
+  public get MaxStep() : number {
+    return this.maxStep;
+  }
+  private set MaxStep(v : number) {
+    this.maxStep = v;
+  }
   private prevStep : number;
   public get Step() : number {
     return this.prevStep;
   }
 
-  constructor() {
+  constructor(private store: Store) {
     this.IsLinearCompletion = true;
     this.NextStep = new EventEmitter<number>();
     this.PrevStep = new EventEmitter<number>();
     this.prevStep = 0;
+    this.updateStep();
+  }
+
+  private updateStep(): void {
+    this.store.select((state: any) =>
+      selectAllFields(state))
+      .pipe(map(fields => fields.length), filter(v => v !== 0), take(1))
+      .subscribe(v => this.prevStep = v);
   }
 
   public EmitStep(step: number) {

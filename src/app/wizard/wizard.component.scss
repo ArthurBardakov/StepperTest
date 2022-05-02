@@ -5,6 +5,7 @@
    width: 100%;
    overflow: hidden;
    grid-gap: 5px;
+   max-width: 865px;
    grid-template-columns: 100%;
    grid-template-rows: 20% 45% 15%;
    grid-template-areas: "topbar"

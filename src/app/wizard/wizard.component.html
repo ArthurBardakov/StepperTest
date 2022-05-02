@@ -1,11 +1,9 @@
-<app-top-bar
-   [Steps]="NumberOfSteps"
-   (FormGroupList)="(content.FormGroupList = $event)"
-   class="wrow">
+<app-top-bar #topBar class="wrow">
 </app-top-bar>
 <app-content #content
-             [Fields]="Fields"
-             (IsFieldValid)="(bb.CanStep = $event)"
+             [FieldDetails]="FieldDetails"
+             (IsFieldValid)="(bb.FreezeStep = $event)"
+             (FormGroupList)="(topBar.FormGroupList = $event)"
              class="wrow">
 </app-content>
 <app-bottom-bar #bb class="wrow"></app-bottom-bar>

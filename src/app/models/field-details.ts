@@ -1,5 +1,5 @@
 export interface FieldDetails {
    Name: string;
-   Type: string | undefined;
+   Type: string;
    Placeholder: string;
 }
